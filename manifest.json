@@ -1,0 +1,23 @@
+{
+    "name": "Typer",
+    "version": "1.0",
+    "description": "Type in any input programatically.",
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "page_action": {
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "contextMenus",
+        "input"
+    ],
+    "content_scripts": [
+        {
+          "matches": ["http://*/*", "https://*/*"],
+          "js": ["contentScript.js"]
+        }
+    ],
+    "manifest_version": 2
+  }
