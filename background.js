@@ -1,6 +1,6 @@
 chrome.contextMenus.create({
     id: "typer",
-    title: "Start typing here",
+    title: "Start typing here!",
     contexts: ["editable"]
 });
 

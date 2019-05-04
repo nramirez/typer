@@ -9,12 +9,10 @@ const setState = async (state, cb) => {
 };
 
 window.addEventListener("DOMContentLoaded", async _ => {
-    const button = document.querySelector("footer button");
     const wpm = document.querySelector(".content input");
 
     const updateComponents = async state => {
         console.log("Updated State", state);
-        button.innerText = state.isRunning ? "Stop!" : "Start!";
         wpm.value = state.wpm;
     };
 
@@ -22,12 +20,6 @@ window.addEventListener("DOMContentLoaded", async _ => {
     getState(state => {
         console.log("Initial State", state);
         updateComponents(state);
-
-        button.addEventListener("click", async () => {
-            await setState({ isRunning: !state.isRunning }, state =>
-                updateComponents(state)
-            );
-        });
 
         wpm.addEventListener("change", e => {
             setState({ wpm: Number(e.target.value) }, newState => {
