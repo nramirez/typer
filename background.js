@@ -5,7 +5,6 @@ chrome.contextMenus.create({
 });
 
 chrome.contextMenus.onClicked.addListener((_, tab) => {
-    setState({ isRunning: true });
     chrome.tabs.sendMessage(tab.id, {
         command: "contextMenuClicked",
         state: getState()
@@ -32,8 +31,7 @@ chrome.runtime.onMessage.addListener(function(request, _, sendResponse) {
 });
 
 const initialState = {
-    wpm: 60,
-    isRunning: false
+    wpm: 60
 };
 
 const getState = () => {
