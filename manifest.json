@@ -3,17 +3,28 @@
     "version": "1.0",
     "description": "Type in any input programatically.",
     "background": {
-        "scripts": ["background.js"],
+        "scripts": [
+            "background.js"
+        ],
         "persistent": false
     },
     "browser_action": {
         "default_popup": "popup.html"
     },
-    "permissions": ["contextMenus"],
+    "permissions": [
+        "contextMenus"
+    ],
     "content_scripts": [
         {
-            "matches": ["http://*/*", "https://*/*"],
-            "js": ["contentScript.js"]
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ],
+            "js": [
+                "lorem.js",
+                "contentScript.js",
+                "type.js"
+            ]
         }
     ],
     "manifest_version": 2
