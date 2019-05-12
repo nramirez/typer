@@ -14,6 +14,10 @@
     "permissions": [
         "contextMenus"
     ],
+    "icons": {
+        "16": "./assets/logo-black-16x16.png",
+        "32": "./assets/logo-black-32x32.png"
+    },
     "content_scripts": [
         {
             "matches": [
