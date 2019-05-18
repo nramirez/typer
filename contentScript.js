@@ -22,4 +22,11 @@ chrome.runtime.onMessage.addListener(request => {
     if (request.command === "contextMenuClicked") {
         writeOnElement(clickedElement, request.state);
     }
+
+    if (request.command === 'stateUpdate') {
+        // Only update the wpm if the script is already typing
+        if (interval) {
+            writeOnElement(clickedElement, request.state);
+        }
+    }
 });

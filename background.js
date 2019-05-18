@@ -11,7 +11,18 @@ chrome.contextMenus.onClicked.addListener((_, tab) => {
     });
 });
 
-chrome.runtime.onMessage.addListener(function(request, _, sendResponse) {
+const updateTabsState = (state) => {
+    chrome.tabs.query({}, (tabs) => {
+        tabs.forEach(({ id }) => {
+            chrome.tabs.sendMessage(id, {
+                command: 'stateUpdate',
+                state: state
+            });
+        });
+    });
+}
+
+chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
     let res = null;
     switch (request.command) {
         case "getState": {
@@ -21,6 +32,7 @@ chrome.runtime.onMessage.addListener(function(request, _, sendResponse) {
         case "setState": {
             setState(request.value);
             res = { value: getState() };
+            updateTabsState(res.value);
             break;
         }
     }
