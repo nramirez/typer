@@ -9,10 +9,23 @@ document.addEventListener(
             clickedElement = event.target;
             const onBlur = () => {
                 clearInterval(interval);
-                clickedElement.removeEventListener("blur", onBlur);
-                clickedElement = null;
+                if (clickedElement) {
+                    clickedElement.removeEventListener("blur", onBlur);
+                    clickedElement = null;
+                }
             };
             clickedElement.addEventListener("blur", onBlur);
+        }
+    },
+    true
+);
+
+document.addEventListener(
+    "keydown",
+    event => {
+        // stop script on escape
+        if (event.key === 'Escape' || event.keyCode === 27) {
+            clearInterval(interval);
         }
     },
     true
