@@ -4,11 +4,28 @@ let interval;
 document.addEventListener(
     "mousedown",
     event => {
-        // right click
-        if (event.button == 2) {
+        // only handle right click
+        if (event.button !== 2) {
+            return false;
+        }
+
+        if (event.target === clickedElement && interval) {
+            chrome.extension.sendMessage({
+                command: 'updateContextMenu',
+                isTyping: true
+            });
+        } else {
+            chrome.extension.sendMessage({
+                command: 'updateContextMenu',
+                isTyping: false
+            });
+        }
+
+        if (clickedElement !== event.target) {
             clickedElement = event.target;
             const onBlur = () => {
                 clearInterval(interval);
+                interval = null;
                 if (clickedElement) {
                     clickedElement.removeEventListener("blur", onBlur);
                     clickedElement = null;
@@ -33,7 +50,13 @@ document.addEventListener(
 
 chrome.runtime.onMessage.addListener(request => {
     if (request.command === "contextMenuClicked") {
-        writeOnElement(clickedElement, request.state);
+        if (request.isTyping) {
+            // stop typing
+            clearInterval(interval);
+            interval = null;
+        } else {
+            writeOnElement(clickedElement, request.state);
+        }
     }
 
     if (request.command === 'stateUpdate') {

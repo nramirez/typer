@@ -38,6 +38,7 @@ const writeOnElement = (element, state) => {
     if (cpm < 1) {
         // We don't type if the user sets the typing to 0 or a negative number
         clearInterval(interval);
+        interval = null;
         return;
     }
 
@@ -45,6 +46,7 @@ const writeOnElement = (element, state) => {
 
     if (interval) {
         clearInterval(interval);
+        interval = null;
     }
 
     interval = setInterval(() => {

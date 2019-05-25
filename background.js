@@ -1,13 +1,15 @@
+let isTyping = false;
 chrome.contextMenus.create({
-    id: "typer",
-    title: "Start typing here!",
+    id: "typerContextId",
+    title: "Start typing here",
     contexts: ["editable"]
 });
 
 chrome.contextMenus.onClicked.addListener((_, tab) => {
     chrome.tabs.sendMessage(tab.id, {
         command: "contextMenuClicked",
-        state: getState()
+        state: getState(),
+        isTyping: isTyping
     });
 });
 
@@ -33,6 +35,14 @@ chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
             setState(request.value);
             res = { value: getState() };
             updateTabsState(res.value);
+            break;
+        }
+        case "updateContextMenu": {
+            isTyping = request.isTyping;
+            chrome.contextMenus.update('typerContextId', {
+                title: isTyping ? 'Stop typing' : 'Start typing here',
+                contexts: ["editable"]
+            });
             break;
         }
     }
