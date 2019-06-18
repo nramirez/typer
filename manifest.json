@@ -1,6 +1,6 @@
 {
     "name": "Typer",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Type in any input programatically.",
     "background": {
         "scripts": [
