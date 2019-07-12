@@ -53,7 +53,7 @@ const writeOnElement = (element, state) => {
         writeChar(element, lorem.text[contentIndex]);
         ++contentIndex;
 
-        if (contentIndex >= lorem.length) {
+        if (contentIndex >= lorem.text.length) {
             // loop through the same text
             contentIndex = 0;
         }
